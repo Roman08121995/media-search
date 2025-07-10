@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Security Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="nav-logo">
+                <i class="fas fa-video"></i>
+                Video Security Analysis
+            </div>
+            <div class="nav-links">
+                <button class="button active">Dashboard</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Security Analysis</h1>
+            <p>Twelve Labs Powered CCTV Footage Analysis and Detailed Reporting</p>
+
+            <!-- Search Section -->
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="What are you looking for?"
+                        autocomplete="off"
+                    >
+                    <button class="clear-search" aria-label="Clear search">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <!-- Search Suggestions -->
+                <div class="suggestions-dropdown" id="suggestionsDropdown">
+                    <div class="suggestion-item" data-value="Car accident on highway">
+                        <i class="fas fa-history"></i>
+                        <span class="suggestion-text">Car accident on highway</span>
+                    </div>
+                    <div class="suggestion-item" data-value="Fight at street">
+                        <i class="fas fa-history"></i>
+                        <span class="suggestion-text">Fight at the street</span>
+                    </div>
+                    <div class="suggestion-item" data-value="Paranormal activity identified">
+                        <i class="fas fa-history"></i>
+                        <span class="suggestion-text">Paranormal activity identified</span>
+                    </div>
+                </div>
+                <!-- Action Button -->
+                <div class="action-button-container">
+                    <button class="action-button" id="searchActionButton">
+                        <span class="button-text">Search and analyze</span>
+                        <i class="fas fa-arrow-up button-icon"></i>
+                        <div class="button-spinner"></div>
+                    </button>
+                </div>
+                </div>
+            </div>
+
+            
+
+                <!-- Sample Videos Section -->
+                <div class="sample-videos">
+                    <div class="sample-header">
+                        <h2>Sample Security Footage</h2>
+                        <p class="sample-description">Explore diverse categories of indexed security footage in this application spanning accidents, violence, and paranormal activities.</p>
+                    </div>
+                    <div class="sample-videos-grid">
+                        <!-- Accident Sample -->
+                        <div class="sample-video-card">
+                            <div class="video-container">
+                                <video controls preload="metadata" class="sample-video">
+                                    <source src="../sample/accident.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="confidence-badge confidence-high">
+                                    <i class="fas fa-check-circle"></i>
+                                    Accident
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <div class="result-info">
+                                    <div class="result-time">
+                                        <i class="fas fa-clock"></i>
+                                        <span>00:00 - 01:30</span>
+                                    </div>
+                                    <h3>Car Accident</h3>
+                                    <p>Highway collision footage from traffic camera <span class="highlight">#Security</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fight Sample -->
+                        <div class="sample-video-card">
+                            <div class="video-container">
+                                <video controls preload="metadata" class="sample-video">
+                                    <source src="../sample/fight.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="confidence-badge confidence-high">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    Violence
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <div class="result-info">
+                                    <div class="result-time">
+                                        <i class="fas fa-clock"></i>
+                                        <span>00:00 - 02:15</span>
+                                    </div>
+                                    <h3>Street Fight</h3>
+                                    <p>Public altercation captured on security <span class="highlight">#CCTV</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Paranormal Sample -->
+                        <div class="sample-video-card">
+                            <div class="video-container">
+                                <video controls preload="metadata" class="sample-video">
+                                    <source src="../sample/paranormal.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="confidence-badge confidence-medium">
+                                    <i class="fas fa-ghost"></i>
+                                    Paranormal
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <div class="result-info">
+                                    <div class="result-time">
+                                        <i class="fas fa-clock"></i>
+                                        <span>00:00 - 01:45</span>
+                                    </div>
+                                    <h3>Paranormal Activity</h3>
+                                    <p>Unexplained phenomena in warehouse <span class="highlight">#NightVision</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="content-section">
+        <!-- Loading State -->
+        <div id="loadingSpinner" class="spinner-container hidden">
+            <div class="spinner">
+                <div class="spinner-ring"></div>
+                <p>Processing Video Analysis</p>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="results-section hidden">
+            <div class="results-header">
+                <h2>Analysis Results</h2>
+                <div class="checkbox-group">
+                    <input type="checkbox" class="checkbox-input" id="filterAll" checked>
+                    <label for="filterAll">All Results</label>
+                    <input type="checkbox" class="checkbox-input" id="filterHighConf">
+                    <label for="filterHighConf">High Confidence</label>
+                    <input type="checkbox" class="checkbox-input" id="filterRecent">
+                    <label for="filterRecent">Recent</label>
+                </div>
+            </div>
+            <div id="resultsGrid" class="results-grid"></div>
+        </section>
+
+        <!-- Error State -->
+        <div id="errorState" class="error-state hidden">
+            <div class="error-content">
+                <i class="fas fa-exclamation-circle"></i>
+                <h3>Analysis Error</h3>
+                <p id="errorMessage">Unable to process the request. Please try again.</p>
+                <button class="button retry-btn">Try Again</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Analysis Modal -->
+    <div id="analysisModal" class="modal hidden" role="dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Analysis Report</h2>
+                <button class="close-button">&times;</button>
+            </div>
+            <div id="analysisContent" class="modal-body"></div>
+            <div class="modal-footer">
+                <button class="download-button" disabled>
+                    <span class="button-content">
+                        <i class="fas fa-download"></i>
+                        Download Report
+                    </span>
+                    <span class="button-loader hidden">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        Generating...
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const elements = {
+                searchInput: document.getElementById('searchInput'),
+                suggestionsDropdown: document.getElementById('suggestionsDropdown'),
+                clearButton: document.querySelector('.clear-search'),
+                actionButton: document.getElementById('searchActionButton'),
+                loadingSpinner: document.getElementById('loadingSpinner'),
+                resultsSection: document.getElementById('resultsSection'),
+                resultsGrid: document.getElementById('resultsGrid'),
+                errorState: document.getElementById('errorState'),
+                modal: document.getElementById('analysisModal'),
+                modalContent: document.getElementById('analysisContent'),
+                closeButton: document.querySelector('.close-button'),
+                downloadButton: document.querySelector('.download-button'),
+                retryButton: document.querySelector('.retry-btn')
+            };
+
+            const state = {
+                isLoading: false,
+                currentAnalysis: null
+            };
+
+            const suggestions = [
+                'Car accident on highway',
+                'Fight at street',
+                'Paranormal activity identified'
+            ];
+
+            function initializeEventListeners() {
+                elements.searchInput.addEventListener('input', handleSearchInput);
+                elements.searchInput.addEventListener('focus', () => {
+                    elements.suggestionsDropdown.classList.add('show');
+                });
+
+                elements.clearButton.addEventListener('click', clearSearch);
+                elements.actionButton.addEventListener('click', handleSearch);
+                elements.closeButton.addEventListener('click', closeModal);
+                elements.retryButton.addEventListener('click', handleSearch);
+                elements.downloadButton.addEventListener('click', handleDownload);
+                
+
+                document.addEventListener('DOMContentLoaded', function() {
+                const searchInput = document.getElementById('searchInput');
+                const sampleVideos = document.querySelector('.sample-videos');
+
+                searchInput.addEventListener('input', function() {
+                    if (this.value.trim().length > 0) {
+                        sampleVideos.style.display = 'none';
+                    } else {
+                        sampleVideos.style.display = 'block';
+                    }
+                });
+            });
+
+
+
+
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('.search-container')) {
+                        elements.suggestionsDropdown.classList.remove('show');
+                    }
+                });
+
+                elements.suggestionsDropdown.addEventListener('click', (e) => {
+                    const item = e.target.closest('.suggestion-item');
+                    if (item) {
+                        const value = item.dataset.value;
+                        selectSuggestion(value);
+                    }
+                });
+            }
+
+
+            function handleSearchInput(e) {
+                const value = e.target.value.toLowerCase();
+                const filtered = suggestions.filter(s => s.toLowerCase().includes(value));
+                updateSuggestions(filtered);
+                elements.actionButton.disabled = !value.trim();
+
+                // Show/hide sample videos based on input
+                const sampleVideos = document.querySelector('.sample-videos');
+                if (sampleVideos) {
+                    if (value.trim().length > 0) {
+                        sampleVideos.classList.add('hidden');
+                    } else {
+                        sampleVideos.classList.remove('hidden');
+                    }
+                }
+
+                // Always show suggestions dropdown when input has focus
+                if (document.activeElement === elements.searchInput) {
+                    elements.suggestionsDropdown.classList.add('show');
+                }
+            }
+
+            async function handleSearch() {
+                const query = elements.searchInput.value.trim();
+                if (!query || state.isLoading) return;
+
+                setLoading(true);
+                
+                // Hide sample videos section
+                const sampleVideos = document.querySelector('.sample-videos');
+                if (sampleVideos) {
+                    sampleVideos.classList.add('hidden');
+                }
+
+                try {
+                    const response = await fetch('/search', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ query })
+                    });
+
+                    if (!response.ok) throw new Error('Search failed');
+
+                    const results = await response.json();
+                    displayResults(results);
+
+                } catch (error) {
+                    console.error('Search error:', error);
+                    showError('Failed to perform search. Please try again.');
+                } finally {
+                    setLoading(false);
+                }
+            }
+            
+            function showNoResults() {
+                elements.resultsGrid.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <h3>No Results Found</h3>
+                        <p>We couldn't find any matches for your search.</p>
+                    </div>
+                `;
+                showElement(elements.resultsSection);
+            }
+            function displayResults(results) {
+                if (!results || !results.length) {
+                    showNoResults();
+                    return;
+                }
+
+                elements.resultsGrid.innerHTML = '';
+                results.forEach(result => {
+                    const card = createResultCard(result);
+                    elements.resultsGrid.appendChild(card);
+                });
+
+                showElement(elements.resultsSection);
+            }
+
+            function createResultCard(result) {
+                    const card = document.createElement('div');
+                    card.className = 'result-card';
+                    
+                    const confidence = result.confidence.toLowerCase();
+                    const confidenceClass = confidence === 'high' ? 'confidence-high' : 'confidence-medium';
+                    
+                    const score = result.score <= 1 ? (result.score * 100).toFixed(2) : result.score.toFixed(2);
+                    
+                    const videoDuration = result.duration || Math.max(result.end, 60);
+                    const highlightStart = (result.start / videoDuration) * 100;
+                    const highlightWidth = ((result.end - result.start) / videoDuration) * 100;
+
+                    card.innerHTML = `
+                        <div class="result-video-container ${result.video_url ? 'loading' : ''}">
+                            ${result.video_url ? `
+                                <div class="video-wrapper">
+                                    <div class="time-highlight" style="left: ${highlightStart}%; width: ${highlightWidth}%;"></div>
+                                    <video 
+                                        id="video-${result.video_id}"
+                                        class="result-video"
+                                        controls
+                                        preload="metadata"
+                                    >
+                                        <source src="${result.video_url}" type="application/x-mpegURL">
+                                    </video>
+                                    <div class="video-overlay">
+                                        <div class="confidence-badge ${confidenceClass}">
+                                            <i class="fas fa-check-circle"></i>
+                                            ${result.confidence}
+                                        </div>
+                                        <div class="score-badge">
+                                            <i class="fas fa-chart-line"></i>
+                                            ${score}%
+                                        </div>
+                                    </div>
+                                </div>
+                            ` : `
+                                <div class="video-placeholder">
+                                    <i class="fas fa-video-slash"></i>
+                                    <p>Video preview not available</p>
+                                </div>
+                            `}
+                        </div>
+                        <div class="result-content">
+                            <div class="result-info">
+                                <div class="result-time">
+                                    <i class="fas fa-clock"></i>
+                                    <span>${formatTimeRange(result.start, result.end)}</span>
+                                </div>
+                                <button class="analyze-btn" onclick="analyzeVideo('${result.video_id}')">
+                                    <i class="fas fa-microscope"></i>
+                                    <span>Detailed Analysis</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+
+                    // Initialize video player if URL exists
+                    if (result.video_url) {
+                        const videoContainer = card.querySelector('.result-video-container');
+                        const video = card.querySelector(`#video-${result.video_id}`);
+                        
+                        if (Hls.isSupported()) {
+                            const hls = new Hls();
+                            hls.loadSource(result.video_url);
+                            hls.attachMedia(video);
+                            
+                            video.addEventListener('loadedmetadata', () => {
+                                video.currentTime = result.start;
+                                videoContainer.classList.remove('loading');
+                            });
+
+                            hls.on(Hls.Events.ERROR, () => {
+                                videoContainer.innerHTML = `
+                                    <div class="video-error">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <p>Failed to load video</p>
+                                    </div>
+                                `;
+                            });
+                        }
+                    }
+
+                    return card;
+                }
+
+            window.analyzeVideo = async function(videoId) {
+                const modalContent = document.getElementById('analysisContent');
+                const downloadButton = document.querySelector('.download-button');
+                const modal = document.getElementById('analysisModal');
+
+                // Show modal and display loading spinner
+                modal.classList.remove('hidden');
+                modalContent.innerHTML = `
+                    <div class="spinner">
+                        <div class="spinner-ring"></div>
+                        <p>Analyzing video...</p>
+                    </div>
+                `;
+                downloadButton.disabled = true;
+
+                try {
+                    // Log analysis request and fetch results from server
+                    const response = await fetch(`/analyze/${videoId}`);
+                    const data = await response.json();
+                    console.log('Analysis response received');
+
+                    if (!response.ok || !data.analysis) {
+                        throw new Error(data.error || 'Analysis failed');
+                    }
+
+                    let analysisText = data.analysis
+                        .replace(/\\n/g, '\n')
+                        .replace(/^"|"$/g, '')
+                        .trim();
+
+                    modalContent.innerHTML = `
+                        <div class="analysis-content">
+                            ${data.video_url ? `
+                                <div class="video-section">
+                                    <video 
+                                        id="analysis-video"
+                                        class="analysis-video"
+                                        controls
+                                        preload="metadata"
+                                    >
+                                        <source src="${data.video_url}" type="application/x-mpegURL">
+                                    </video>
+                                </div>
+                            ` : ''}
+                            <div class="analysis-text">
+                                <h3>
+                                    <i class="fas fa-clipboard-list"></i>
+                                    Analysis Details
+                                </h3>
+                                <div class="analysis-paragraphs">
+                                    ${analysisText.split('\n\n')
+                                        .map(p => p.trim())
+                                        .filter(p => p)
+                                        .map(p => `<p class="analysis-paragraph">${p}</p>`)
+                                        .join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    if (data.video_url) {
+                        const video = document.getElementById('analysis-video');
+                        if (video && Hls.isSupported()) {
+                            const hls = new Hls();
+                            hls.loadSource(data.video_url);
+                            hls.attachMedia(video);
+                            
+                            hls.on(Hls.Events.ERROR, function(event, data) {
+                                console.error('Video playback error');
+                                if (data.fatal) {
+                                    handleVideoError();
+                                }
+                            });
+                        }
+                    }
+
+                    state.currentAnalysis = analysisText;
+                    downloadButton.disabled = false;
+
+                } catch (error) {
+                    console.error('Analysis error');
+                    modalContent.innerHTML = `
+                        <div class="error-message">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <p>${error.message || 'Failed to analyze video. Please try again.'}</p>
+                            <button class="retry-btn" onclick="analyzeVideo('${videoId}')">
+                                <i class="fas fa-redo"></i> Try Again
+                            </button>
+                        </div>
+                    `;
+                }
+            };
+
+
+            function clearSearch() {
+                elements.searchInput.value = '';
+                elements.suggestionsDropdown.classList.remove('show');
+                elements.actionButton.disabled = true;
+
+                const sampleVideos = document.querySelector('.sample-videos');
+                if (sampleVideos) {
+                    sampleVideos.classList.remove('hidden');
+                }
+
+                hideElement(elements.resultsSection);
+            }
+
+            function selectSuggestion(text) {
+                elements.searchInput.value = text;
+                elements.suggestionsDropdown.classList.remove('show');
+                elements.actionButton.disabled = false;
+            }
+
+            function updateSuggestions(filteredSuggestions) {
+                elements.suggestionsDropdown.innerHTML = filteredSuggestions
+                    .map(s => `
+                        <div class="suggestion-item" data-value="${s}">
+                            <i class="fas fa-history"></i>
+                            <span class="suggestion-text">${s}</span>
+                        </div>
+                    `).join('');
+            }
+
+            function setLoading(loading) {
+                state.isLoading = loading;
+                elements.actionButton.disabled = loading;
+                elements.actionButton.classList.toggle('loading', loading);
+                toggleElement(elements.loadingSpinner, loading);
+                if (loading) {
+                    hideElement(elements.resultsSection);
+                    hideElement(elements.errorState);
+                }
+            }
+
+            function showModal() {
+                elements.modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                elements.modal.classList.add('hidden');
+                document.body.style.overflow = '';
+                state.currentAnalysis = null;
+            }
+
+            function showError(message) {
+                const errorMessage = document.getElementById('errorMessage');
+                if (errorMessage) {
+                    errorMessage.textContent = message;
+                }
+                showElement(elements.errorState);
+            }
+
+            function formatTimeRange(start, end) {
+                return `${formatTime(start)} - ${formatTime(end)}`;
+            }
+
+            function formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = Math.floor(seconds % 60);
+                return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+            }
+
+            function showElement(element) {
+                element?.classList.remove('hidden');
+            }
+
+            function hideElement(element) {
+                element?.classList.add('hidden');
+            }
+
+            function toggleElement(element, show) {
+                element?.classList.toggle('hidden', !show);
+            }
+
+            async function handleDownload() {
+                if (!state.currentAnalysis) {
+                    console.error('No analysis available for download');
+                    return;
+                }
+
+                const downloadButton = document.querySelector('.download-button');
+                const buttonContent = downloadButton.querySelector('.button-content');
+                const buttonLoader = downloadButton.querySelector('.button-loader');
+
+                try {
+                    downloadButton.disabled = true;
+                    buttonContent.classList.add('hidden');
+                    buttonLoader.classList.remove('hidden');
+
+                    const response = await fetch('/generate-report', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            analysis: state.currentAnalysis
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(data.error || 'Failed to generate report');
+                    }
+
+                    if (data.report_url) {
+                        window.location.href = data.report_url;
+                    } else {
+                        throw new Error('No report URL received');
+                    }
+
+                } catch (error) {
+                    console.error('Download error:', error);
+                    alert('Failed to download report. Please try again.');
+                } finally {
+                    downloadButton.disabled = false;
+                    buttonContent.classList.remove('hidden');
+                    buttonLoader.classList.add('hidden');
+                }
+            }
+
+
+            initializeEventListeners();
+        });
+    </script>
+</body>
+</html>
