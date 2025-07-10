@@ -1,6 +1,6 @@
 <br />
 <div align="center">
-  <h3 align="center">Security Analysis Tool</h3>
+  <h3 align="center">Media Search</h3>
 </div>
 
 <details>
