@@ -1,16 +1,6 @@
 <br />
 <div align="center">
   <h3 align="center">Security Analysis Tool</h3>
-  <p align="center">
-    Automatically detect and highlight key events in security video footage
-    <br />
-    <a href="https://github.com/Hrishikesh332/Twelve-Labs-Security-Analysis">Explore the docs »</a>
-    <br />
-    <br />
-    <a href="https://twelvelabs-security-analysis.onrender.com/">View Demo</a> ·
-    <a href="https://github.com/Hrishikesh332/Twelve-Labs-Security-Analysis/issues">Report Bug</a> ·
-    <a href="https://github.com/Hrishikesh332/Twelve-Labs-Security-Analysis/issues">Request Feature</a>
-  </p>
 </div>
 
 <details>
@@ -25,46 +15,12 @@
   </ol>
 </details>
 
-------
 
 ## About
 
 The **Security Analysis Tool** is designed to automatically analyze video footage from security videos. By detecting and highlighting key events such as accident, unauthorized access, or suspicious activities, it helps security personnel or security operators to quickly identify critical moments in video footage. 
 
 This tool saves time and improves efficiency in video monitoring, making it a must have for both personal and professional security needs. Generate automated documentation of security incidents for records or reports for the detected events.
-
-## Demonstration
-
-Try the Application Now:
-
-<a href="https://twelvelabs-security-analysis.onrender.com/" target="_blank" style="
-    display: inline-block;
-    padding: 12px 24px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 8px;
-    text-align: center;
-    text-decoration: none;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: background-color 0.3s, box-shadow 0.3s;
-">
-    Security Analysis Demo
-</a>
-
-Demo and Video Explanation:
-
-[![Watch the video](https://img.youtube.com/vi/fHRdb8sGd-w/hqdefault.jpg)](https://youtu.be/fHRdb8sGd-w?si=_YQNRZ_MvoDB7A3C)
-
-Demo 1 - Car Accident on the Highway
-
-![](https://github.com/Hrishikesh332/Twelve-Labs-Security-Analysis/blob/main/src/demo-security-1.gif)
-
-Demo 2 - Paranormal Activty Identified
-
-![](https://github.com/Hrishikesh332/Twelve-Labs-Security-Analysis/blob/main/src/demo-security-2.gif)
 
 ## Features
 
@@ -73,8 +29,6 @@ Demo 2 - Paranormal Activty Identified
 🔍 **Anomaly Highlighting**: The tool analyzes the footage and highlights abnormal activities.
 
 🧠 **AI Driven Insights Report**: Accurate and efficient security analysis report.
-
-![](https://github.com/Hrishikesh332/Twelve-Labs-Security-Aanlysis/blob/main/src/workflow-app.png)
 
 ## Tech Stack
 
