@@ -44,13 +44,13 @@ To run the **Security Analysis Tool** locally, follow these steps -
 ### Step 1 - Clone the Project
 
 ```bash
-git clone https://github.com/Hrishikesh332/Twelve-Labs-Security-Analysis.git
+git clone https://github.com/Roman08121995/media-search.git
 ```
 
 Install Dependencies
 
 ```
- cd Twelve-Labs-Security-Aanlysis
+ cd media-search/be
  
  pip install -r requirements.txt
 ```
