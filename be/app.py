@@ -26,7 +26,7 @@ try:
 except Exception as e:
     app.logger.error(f"Error loading INDEX_ID: {str(e)}")
     raise
-BASE_URL = "https://api.twelvelabs.io/v1.2"
+BASE_URL = "https://api.twelvelabs.io/v1.3"
 REPORTS_DIR = os.path.join('static', 'reports')
 
 

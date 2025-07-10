@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Security Analysis</title>
+    <title>Media Search Hub</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
@@ -14,19 +14,19 @@
         <div class="nav-content">
             <div class="nav-logo">
                 <i class="fas fa-video"></i>
-                Video Security Analysis
+                Media Search Hub
             </div>
-            <div class="nav-links">
+            <!-- <div class="nav-links">
                 <button class="button active">Dashboard</button>
-            </div>
+            </div> -->
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Security Analysis</h1>
-            <p>Twelve Labs Powered CCTV Footage Analysis and Detailed Reporting</p>
+            <h1>Media Search Hub</h1>
+            <!-- <p>Twelve Labs Powered CCTV Footage Analysis and Detailed Reporting</p> -->
 
             <!-- Search Section -->
             <div class="search-container">
@@ -42,7 +42,7 @@
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
-                <!-- Search Suggestions -->
+                <!-- Search Suggestions
                 <div class="suggestions-dropdown" id="suggestionsDropdown">
                     <div class="suggestion-item" data-value="Car accident on highway">
                         <i class="fas fa-history"></i>
@@ -56,7 +56,7 @@
                         <i class="fas fa-history"></i>
                         <span class="suggestion-text">Paranormal activity identified</span>
                     </div>
-                </div>
+                </div> -->
                 <!-- Action Button -->
                 <div class="action-button-container">
                     <button class="action-button" id="searchActionButton">
@@ -73,20 +73,20 @@
                 <!-- Sample Videos Section -->
                 <div class="sample-videos">
                     <div class="sample-header">
-                        <h2>Sample Security Footage</h2>
-                        <p class="sample-description">Explore diverse categories of indexed security footage in this application spanning accidents, violence, and paranormal activities.</p>
+                        <h2>Main Data</h2>
+                        <!-- <p class="sample-description">Explore diverse categories of indexed security footage in this application spanning accidents, violence, and paranormal activities.</p> -->
                     </div>
                     <div class="sample-videos-grid">
                         <!-- Accident Sample -->
                         <div class="sample-video-card">
                             <div class="video-container">
                                 <video controls preload="metadata" class="sample-video">
-                                    <source src="../sample/accident.mp4" type="video/mp4">
+                                    <source src="../sample/effortless english.mp4" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
                                 <div class="confidence-badge confidence-high">
                                     <i class="fas fa-check-circle"></i>
-                                    Accident
+                                    Effortless English 
                                 </div>
                             </div>
                             <div class="video-info">
@@ -95,8 +95,8 @@
                                         <i class="fas fa-clock"></i>
                                         <span>00:00 - 01:30</span>
                                     </div>
-                                    <h3>Car Accident</h3>
-                                    <p>Highway collision footage from traffic camera <span class="highlight">#Security</span></p>
+                                    <h3>English Learning</h3>
+                                    <p>Listening<span class="highlight">#Studying</span></p>
                                 </div>
                             </div>
                         </div>
@@ -105,12 +105,12 @@
                         <div class="sample-video-card">
                             <div class="video-container">
                                 <video controls preload="metadata" class="sample-video">
-                                    <source src="../sample/fight.mp4" type="video/mp4">
+                                    <source src="../sample/linkedin scraping.mp4" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
                                 <div class="confidence-badge confidence-high">
                                     <i class="fas fa-exclamation-circle"></i>
-                                    Violence
+                                    recording development process
                                 </div>
                             </div>
                             <div class="video-info">
@@ -119,8 +119,8 @@
                                         <i class="fas fa-clock"></i>
                                         <span>00:00 - 02:15</span>
                                     </div>
-                                    <h3>Street Fight</h3>
-                                    <p>Public altercation captured on security <span class="highlight">#CCTV</span></p>
+                                    <h3>project recording</h3>
+                                    <p>live<span class="highlight">#CCTV</span></p>
                                 </div>
                             </div>
                         </div>
@@ -129,12 +129,12 @@
                         <div class="sample-video-card">
                             <div class="video-container">
                                 <video controls preload="metadata" class="sample-video">
-                                    <source src="../sample/paranormal.mp4" type="video/mp4">
-                                    Your browser does not support the video tag.
+                                    <source src="../sample/rain.mp4" type="video/mp4">
+                                    town of rain
                                 </video>
                                 <div class="confidence-badge confidence-medium">
                                     <i class="fas fa-ghost"></i>
-                                    Paranormal
+                                    rain
                                 </div>
                             </div>
                             <div class="video-info">
@@ -143,8 +143,8 @@
                                         <i class="fas fa-clock"></i>
                                         <span>00:00 - 01:45</span>
                                     </div>
-                                    <h3>Paranormal Activity</h3>
-                                    <p>Unexplained phenomena in warehouse <span class="highlight">#NightVision</span></p>
+                                    <h3>rain Activity</h3>
+                                    <p>weather<span class="highlight">#NightVision</span></p>
                                 </div>
                             </div>
                         </div>
@@ -238,7 +238,7 @@
             };
 
             const suggestions = [
-                'Car accident on highway',
+                'Effortless English',
                 'Fight at street',
                 'Paranormal activity identified'
             ];
@@ -334,6 +334,7 @@
                     if (!response.ok) throw new Error('Search failed');
 
                     const results = await response.json();
+                    console.log(results);
                     displayResults(results);
 
                 } catch (error) {
@@ -355,13 +356,18 @@
                 showElement(elements.resultsSection);
             }
             function displayResults(results) {
-                if (!results || !results.length) {
+                if ((!results || !results.length)) {
                     showNoResults();
                     return;
                 }
 
+                // Sort by score descending and take top 2
+                const topResults = results
+                    .sort((a, b) => b.score - a.score)
+                    .slice(0, 1);
+                
                 elements.resultsGrid.innerHTML = '';
-                results.forEach(result => {
+                topResults.forEach(result => {
                     const card = createResultCard(result);
                     elements.resultsGrid.appendChild(card);
                 });
