@@ -17,10 +17,13 @@
     "@eslint/js": "^9.29.0",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vue/eslint-config-prettier": "^10.2.0",
+    "autoprefixer": "^10.4.21",
     "eslint": "^9.29.0",
     "eslint-plugin-vue": "~10.2.0",
     "globals": "^16.2.0",
+    "postcss": "^8.5.6",
     "prettier": "3.5.3",
+    "tailwindcss": "^4.1.11",
     "vite": "^7.0.0",
     "vite-plugin-vue-devtools": "^7.7.7"
   }

@@ -1,47 +1,62 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div class="min-h-screen bg-gray-100">
+    <Navbar />
+    <main class="px-4 max-w-7xl mx-auto py-6">
+      <SearchBox @search="handleSearch" />
+      <SampleVideos v-if="!loading && !results.length && !searching" />
+      <LoadingSpinner v-if="loading" />
+      <ResultsSection v-if="results.length" :results="results" @analyze="openAnalysis" />
+      <AnalysisModal v-if="showModal" :video-id="selectedVideoId" @close="closeModal" />
+    </main>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<script setup>
+import { ref } from 'vue'
+import Navbar from './components/Navbar.vue'
+import SearchBox from './components/SearchBox.vue'
+import SampleVideos from './components/SampleVideos.vue'
+import LoadingSpinner from './components/LoadingSpinner.vue'
+import ResultsSection from './components/ResultsSection.vue'
+import AnalysisModal from './components/AnalysisModal.vue'
+
+const results = ref([])
+const loading = ref(false)
+const searching = ref(false)
+const showModal = ref(false)
+const selectedVideoId = ref(null)
+
+async function handleSearch(query) {
+  loading.value = true
+  results.value = []
+  searching.value = true
+  try {
+    const res = await fetch('/search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query })
+    })
+    results.value = await res.json()
+  } catch (err) {
+    console.error(err)
+  } finally {
+    loading.value = false
+  }
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+function openAnalysis(videoId) {
+  selectedVideoId.value = videoId
+  showModal.value = true
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+function closeModal() {
+  showModal.value = false
+  selectedVideoId.value = null
+}
+</script>
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+<style>
+body {
+  font-family: 'Segoe UI', sans-serif;
 }
 </style>

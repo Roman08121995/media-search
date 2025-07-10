@@ -15,4 +15,12 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  server: {
+    proxy: {
+      '/search': 'http://localhost:5000',
+      '/analyze': 'http://localhost:5000',
+      '/generate-report': 'http://localhost:5000',
+      '/download-report': 'http://localhost:5000'
+    }
+  }
 })
