@@ -1,24 +1,6 @@
-<br />
-<div align="center">
-  <h3 align="center">Security Analysis Tool</h3>
-</div>
-
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li><a href="#about">About</a></li>
-    <li><a href="#features">Features</a></li>
-    <li><a href="#tech-stack">Tech Stack</a></li>
-    <li><a href="#instructions-on-running-project-locally">Instructions on Running Project Locally</a></li>
-    <li><a href="#use-cases">Use Cases</a></li>
-    <li><a href="#feedback">Feedback</a></li>
-  </ol>
-</details>
-
-
 ## About
 
-The **Security Analysis Tool** is designed to automatically analyze video footage from security videos. By detecting and highlighting key events such as accident, unauthorized access, or suspicious activities, it helps security personnel or security operators to quickly identify critical moments in video footage. 
+The **media search** is designed to automatically analyze video footage from security videos. By detecting and highlighting key events such as accident, unauthorized access, or suspicious activities, it helps security personnel or security operators to quickly identify critical moments in video footage. 
 
 This tool saves time and improves efficiency in video monitoring, making it a must have for both personal and professional security needs. Generate automated documentation of security incidents for records or reports for the detected events.
 
@@ -39,7 +21,7 @@ This tool saves time and improves efficiency in video monitoring, making it a mu
 
 ## Instructions on Running Project Locally
 
-To run the **Security Analysis Tool** locally, follow these steps -
+To run the **media search** locally, follow these steps -
 
 ### Step 1 - Clone the Project
 
