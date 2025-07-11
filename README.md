@@ -28,7 +28,7 @@ To run the **Media Search** locally, follow these steps:
 ### Step 1 - Clone the Project
 
 ```bash
-git clone https://github.com/your-username/media-search.git
+git clone https://github.com/Roman08121995/media-search.git
 cd media-search
 ```
 
