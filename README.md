@@ -8,8 +8,6 @@
   <ol>
     <li><a href="#tech-stack">Tech Stack</a></li>
     <li><a href="#instructions-on-running-project-locally">Instructions on Running Project Locally</a></li>
-    <li><a href="#use-cases">Use Cases</a></li>
-    <li><a href="#feedback">Feedback</a></li>
   </ol>
 </details>
 
