@@ -19,7 +19,6 @@ import SampleVideos from './components/SampleVideos.vue'
 import LoadingSpinner from './components/LoadingSpinner.vue'
 import ResultsSection from './components/ResultsSection.vue'
 import AnalysisModal from './components/AnalysisModal.vue'
-
 const results = ref([])
 const loading = ref(false)
 const searching = ref(false)

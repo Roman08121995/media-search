@@ -11,6 +11,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "three": "^0.178.0",
+    "troisjs": "^0.3.4",
     "vue": "^3.5.17"
   },
   "devDependencies": {
