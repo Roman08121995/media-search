@@ -38,6 +38,7 @@ API_KEY = "<Your API Key>"
 INDEX_ID = "<Your Index ID>"
 ```
 extract sa_interview_assets.zip in .../sample path
+```
 Upload these media files in your IndexID
 
 To Run the Server Locally
